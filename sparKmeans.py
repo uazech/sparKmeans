@@ -30,7 +30,6 @@ centers
 
 
 def closestCenter(point, centers: list):
-    # TODO : optimiser ?
     """ Calculate the closest center for a single point
     Arguments:
         point {spark.Row} -- the point
