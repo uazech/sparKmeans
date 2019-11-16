@@ -23,6 +23,6 @@ This project is an implementation of Kmeans using Spark on iris dataset. It incl
 
 ## TODO
 - [x] Add documentation
-- [ ] Visualize correct clustering
+- [x] Visualize correct clustering
 - [ ] Convert to notebook
 - [ ] Test Githut CI
