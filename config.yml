@@ -1,0 +1,15 @@
+# Kmeans config
+converge_dist: 0.05 # Kmeans converge dist
+max_iterations: 0.05 # Kmeans maximum number of iterations
+nb_classes: 3 # The Kmeans number of classes to find
+
+
+#Logging
+spark_logging_level: WARN # Spark logging level
+app_logging_level: INFO # Application logging level
+visualize: false
+
+# Spark files
+include_files: 
+  - kmeans.py
+  - constants.py

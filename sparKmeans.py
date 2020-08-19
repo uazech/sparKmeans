@@ -6,10 +6,11 @@ from pyspark.sql.types import DoubleType
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import sys
 
 spark = SparkSession.builder.appName('sparKmeans').getOrCreate()
 # %% Load and read CSV
-df = spark.read.csv("iris.csv", header=True)
+df = spark.read.csv("data/iris.csv", header=True)
 df.head(5)
 
 # %% Set col types and drop columns
@@ -46,6 +47,8 @@ def closestCenter(point, centers: list):
     centerDistance = float("+inf")
     for i in range(len(centers)):
         # Get Euclydian dist
+        print(i, point, centers)
+
         tempDist = np.sum((np.array(point) - np.array(centers[i])) ** 2)
         if tempDist < centerDistance:
             centerDistance = tempDist
@@ -54,7 +57,7 @@ def closestCenter(point, centers: list):
 
 
 # %% Calculate the clusters centers (iterative)
-centersHist = [centers[:]]
+centersHist = [centers.copy()]
 dist = float("+inf")
 while dist > CONVERGE_DIST:
     # Define the closest points by centers
@@ -85,7 +88,7 @@ print("Nb iteration : ", len(centersHist) - 1)
 
 # %% Visualize the clustering step by step
 colors = ["red", "blue", "green"]
-dfWithLabels = pd.read_csv("iris.csv", header=0, delimiter=",")
+dfWithLabels = pd.read_csv("data/iris.csv", header=0, delimiter=",")
 
 i = 0
 for centers in centersHist:
@@ -143,4 +146,7 @@ for centers in centersHist:
 
 
 # %% Stop Spark
-spark.stop()
+try:
+    spark.stop()
+except:
+    sys.exit(1)
